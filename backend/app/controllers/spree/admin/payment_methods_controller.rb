@@ -9,6 +9,7 @@ module Spree
 
       def create
         @payment_method = params[:payment_method].delete(:type).constantize.new(payment_method_params)
+        byebug
         @object = @payment_method
         invoke_callbacks(:create, :before)
         if @payment_method.save
@@ -24,6 +25,7 @@ module Spree
       def update
         invoke_callbacks(:update, :before)
         payment_method_type = params[:payment_method].delete(:type)
+        byebug
         if @payment_method['type'].to_s != payment_method_type
           @payment_method.update_columns(
             type: payment_method_type,
